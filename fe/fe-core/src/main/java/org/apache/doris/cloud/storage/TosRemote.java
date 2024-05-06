@@ -24,8 +24,6 @@ import com.volcengine.model.response.AssumeRoleResponse;
 import com.volcengine.model.response.AssumeRoleResponse.Credentials;
 import com.volcengine.service.sts.ISTSService;
 import com.volcengine.service.sts.impl.STSServiceImpl;
-import com.volcengine.service.sts.ISTSService;
-import com.volcengine.service.sts.impl.STSServiceImpl;
 import com.volcengine.tos.TOSV2;
 import com.volcengine.tos.TOSV2ClientBuilder;
 import com.volcengine.tos.TosClientException;
@@ -97,8 +95,7 @@ public class TosRemote extends DefaultRemote {
             throw new DdlException("getSts token failed", e);
         }
         Credentials credentials = resp.getResult().getCredentials();
-        return Triple.of(credentials.getAccessKeyId(), credentials.getSecretAccessKey(),
-                credentials.getSessionToken());
+        return Triple.of(credentials.getAccessKeyId(), credentials.getSecretAccessKey(), credentials.getSessionToken());
     }
 
     @Override
