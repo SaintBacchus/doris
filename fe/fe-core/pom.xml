@@ -36,6 +36,8 @@ under the License.
         <awssdk.version>2.20.131</awssdk.version>
         <huaweiobs.version>3.1.1-hw-46</huaweiobs.version>
         <tencentcos.version>8.2.7</tencentcos.version>
+        <volcenginetos.version>2.6.6</volcenginetos.version>
+        <volcenginesdk.version>1.0.158</volcenginesdk.version>
     </properties>
     <profiles>
         <profile>
@@ -411,6 +413,28 @@ under the License.
             <groupId>com.huaweicloud</groupId>
             <artifactId>hadoop-huaweicloud</artifactId>
             <version>${huaweiobs.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jackson-databind</artifactId>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.volcengine</groupId>
+            <artifactId>ve-tos-java-sdk</artifactId>
+            <version>${volcenginetos.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jackson-databind</artifactId>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.volcengine</groupId>
+            <artifactId>volc-sdk-java</artifactId>
+            <version>${volcenginesdk.version}</version>
             <exclusions>
                 <exclusion>
                     <artifactId>jackson-databind</artifactId>

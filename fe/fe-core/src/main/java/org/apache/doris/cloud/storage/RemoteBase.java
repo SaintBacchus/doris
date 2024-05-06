@@ -149,6 +149,8 @@ public abstract class RemoteBase {
                 return new ObsRemote(obj);
             case BOS:
                 return new BosRemote(obj);
+            case TOS:
+                return new TosRemote(obj);
             default:
                 throw new Exception("current not support obj : " + obj.toString());
         }
