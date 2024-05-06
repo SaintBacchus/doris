@@ -169,7 +169,7 @@ enum NodeStatusPB {
 
 message ObjectStoreInfoPB {
     // presigned url use
-    // oss,aws,cos,obs,bos
+    // oss,aws,cos,obs,bos,tos
     enum Provider {
         OSS = 0;
         S3 =  1;
@@ -177,6 +177,7 @@ message ObjectStoreInfoPB {
         OBS = 3;
         BOS = 4;
         GCP = 5;
+        TOS = 6;
     }
     optional int64 ctime = 1;
     optional int64 mtime = 2;
