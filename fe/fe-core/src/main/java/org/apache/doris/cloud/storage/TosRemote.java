@@ -47,26 +47,30 @@ public class TosRemote extends DefaultRemote {
         String endPoint = obj.getEndpoint();
         String accessKey = obj.getAk();
         String secretKey = obj.getSk();
+        // Tos have two endpoint: tos endpoint and s3 endpoint like:
+        // tos endpoint: tos-cn-beijing.ivolces.com
+        // s3  endpoint: tos-s3-cn-beijing.ivolces.com
+        if (endPoint.contains("s3-")) {
+            endPoint = endPoint.replaceFirst("s3-", "");
+        }
         TOSV2 client = new TOSV2ClientBuilder().build(region, endPoint, accessKey, secretKey);
 
         String bucketName = obj.getBucket();
         String objectName = normalizePrefix(fileName);
-        // 单位为秒，设置3600秒即1小时后过期
+        // default 1 hour.
         long expires = 3600;
         String signedUrl = "";
         try {
             PreSignedURLInput input = new PreSignedURLInput();
             input.setBucket(bucketName);
             input.setKey(objectName);
-            input.setHttpMethod(HttpMethod.GET);
+            input.setHttpMethod(HttpMethod.PUT);
             input.setExpires(expires);
             PreSignedURLOutput output = client.preSignedURL(input);
             signedUrl = output.getSignedUrl();
         } catch (TosClientException e) {
-            // 操作失败，捕获客户端异常，一般情况是请求参数错误，此时请求并未发送
             LOG.error("preSignedURL failed", e);
         } catch (Throwable t) {
-            // 作为兜底捕获其他异常，一般不会执行到这里
             LOG.error("unexpected exception in preSignedURL", t);
         }
 
